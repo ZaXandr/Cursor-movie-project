@@ -1,13 +1,14 @@
 package com.cursor.team2.movieproject.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 @Entity
 public class Movie {
@@ -25,5 +26,10 @@ public class Movie {
     public String description;
 
     @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     public Rate rate;
+
+    public Movie() {
+        this.rate = new Rate();
+    }
 }

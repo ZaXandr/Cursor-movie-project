@@ -1,10 +1,20 @@
 package com.cursor.team2.movieproject.entity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public enum Category {
-    SCI_FI("Science fiction");
+    ACT("Action"),
+    COM("Comedy"),
+    DRA("Drama"),
+    FAN("Fantasy"),
+    HOR("Horror"),
+    MYS("Mystery"),
+    ROM("Romance"),
+    THR("Thriller"),
+    WES("Western"),
+    SCI_FI("Science_fiction");
+
 
     private final String name;
 
@@ -24,6 +34,11 @@ public enum Category {
             map.put(c.name, c);
         }
     }
+
+    public static List<String> getNames() {
+       return Arrays.stream(Category.values()).map(category -> {return category.name;}).collect(Collectors.toList());
+    }
+
 
     public static Category testByKey(String category) {
         return map.get(category);
