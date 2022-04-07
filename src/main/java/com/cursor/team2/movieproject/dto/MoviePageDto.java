@@ -1,6 +1,7 @@
 package com.cursor.team2.movieproject.dto;
 
 
+import com.cursor.team2.movieproject.entity.Rate;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -17,5 +18,6 @@ public class MoviePageDto {
     public String category;
     public String director;
     public String description;
+    public Rate rate;
     public List<ReviewDto> reviews;
 }
