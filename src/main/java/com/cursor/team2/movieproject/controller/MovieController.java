@@ -31,9 +31,14 @@ public class MovieController {
         return movieService.getMovieByCategory(category);
     }
 
-    @GetMapping("movie/rating")
-    public List<MovieDto> getMovieByRating(){
-        return movieService.getMovieByRating();
+    @GetMapping("movie/rating/desc")
+    public List<MovieDto> getMovieByRatingDesc(){
+        return movieService.getMovieByRatingDesc();
+    }
+
+    @GetMapping("movie/rating/asc")
+    public List<MovieDto> getMovieByRatingAsc(){
+        return movieService.getMovieByRatingAsc();
     }
 
 
@@ -52,8 +57,8 @@ public class MovieController {
         movieService.deleteMovie(id);
     }
 
-    @PutMapping("/movie/rating/{value}")
-    public Rate updateRating(@PathVariable int value){
-        return movieService.updateRating(value);
+    @PutMapping("/movie/rating/{id}/{value}")
+    public Rate updateRating(@PathVariable Long id,@PathVariable int value){
+        return movieService.updateRating(id,value);
     }
 }
