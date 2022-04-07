@@ -23,7 +23,8 @@ public class MovieMapper {
                 .setName(movie.getName())
                 .setCategory(movie.getCategory().getName())
                 .setDirector(movie.getDirector())
-                .setDescription(movie.getDescription());
+                .setDescription(movie.getDescription())
+                .setRate(movie.getRate());
         return movieDto;
     }
 }
