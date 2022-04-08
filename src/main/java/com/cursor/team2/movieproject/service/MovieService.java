@@ -50,9 +50,9 @@ public class MovieService {
         return movieRepository.findById(id)
                 .map(movieMapper::toPageDto)
                 .map(movieDto -> movieDto.setReviews(
-                    reviewRepository.geByMovieId(id).stream()
-                            .map(reviewMapper::toDto)
-                            .collect(Collectors.toList()))
+                        reviewRepository.geByMovieId(id).stream()
+                                .map(reviewMapper::toDto)
+                                .collect(Collectors.toList()))
                 )
                 .orElseThrow(() -> new MovieNotFoundException(id));
     }
@@ -82,19 +82,20 @@ public class MovieService {
     }
 
     public Rate updateRating(Long id, int value) {
-        return movieRepository.findById(id)
-                .map(movie -> {
-                    if (value > 10 || value < 0) {
-                        throw new WrongRatingException("unable to put value:", value);
-                    } else {
-                        Rate rate = movie.getRate();
-                        rate.setAverage((movie.getRate().getAverage() * movie.getRate().getVoices() + value)
-                                / (movie.getRate().getVoices() + 1));
-                        rate.setVoices(rate.getVoices() + 1);
-                        return rateRepository.save(rate);
-                    }
-                })
+
+        if (value > 10 || value < 0) {
+            throw new WrongRatingException("unable to put value:", value);
+        }
+
+        var movie = movieRepository.findById(id)
                 .orElseThrow(() -> new MovieNotFoundException(id));
+
+        Rate rate = movie.getRate();
+        rate.setAverage((movie.getRate().getAverage() * movie.getRate().getVoices() + value)
+                / (movie.getRate().getVoices() + 1));
+        rate.setVoices(rate.getVoices() + 1);
+
+        return rateRepository.save(rate);
     }
 
     public List<MovieDto> getMovieByCategory(String category) {
