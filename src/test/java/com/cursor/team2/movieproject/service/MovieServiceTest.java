@@ -201,22 +201,30 @@ class MovieServiceTest {
     }
 
     @Test
-    void WhenUpdateRating_ShouldReturnNEwRating() {
+    void WhenUpdateRating_ShouldReturnNewRating() {
         Long id = 1l;
         Rate rate = new Rate()
                 .setId(1l)
                 .setAverage(2)
                 .setVoices(1);
 
+        Rate newRate = new Rate()
+                .setId(1l)
+                .setAverage(6)
+                .setVoices(2);
+
         Movie movie = new Movie()
                 .setId(id)
                 .setRate(rate);
 
         when(movieRepository.findById(id)).thenReturn(Optional.of(movie));
-        Rate expected = underTest.updateRating(id, 10);
+        underTest.updateRating(id, 10);
 
-        Assertions.assertEquals(expected.getAverage(),6);
-        Assertions.assertEquals(expected.getVoices(),3);
+        ArgumentCaptor<Rate> captor = ArgumentCaptor.forClass(Rate.class);
+        verify(rateRepository).save(captor.capture());
+        Rate expected = captor.getValue();
+
+        assertThat(expected).isEqualTo(newRate);
     }
 
     @Test
