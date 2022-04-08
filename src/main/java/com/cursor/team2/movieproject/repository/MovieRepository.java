@@ -13,12 +13,12 @@ import java.util.List;
 public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     @Query("SELECT m FROM Movie m WHERE m.category = :category")
-    public List<Movie> findByCategory(Category category);
+    List<Movie> findByCategory(Category category);
 
     @Query("SELECT m From Movie m Order By m.rate.average DESC, m.rate.voices DESC")
-    public List<Movie> getMovieByRatingDesc();
+    List<Movie> getMovieByRatingDesc();
 
     @Query("SELECT m From Movie m Order By m.rate.average ASC, m.rate.voices ASC")
-    public List<Movie> getMovieByRatingAsc();
+    List<Movie> getMovieByRatingAsc();
 
 }
